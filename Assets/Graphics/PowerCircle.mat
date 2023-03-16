@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PowerCircle
+  m_Shader: {fileID: -6465566751694194690, guid: 4eea71bee362f7a4ebaf8496bc6ee72b,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: bfcf850711a21d54db9140ef55dae0fd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture1:
+        m_Texture: {fileID: 2800000, guid: 9dab3671ead30a7409e818a62fddd2d3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2:
+        m_Texture: {fileID: 2800000, guid: aff25abba2422cb419f356696d611bd8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Edge: 0.3
+    - _Float: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Speed: 2.5
+    - _Speed1: -0.1
+    - _Speed2: 0.2
+    m_Colors:
+    - _Color: {r: 1.929412, g: 0.7686275, b: 0.2352941, a: 0}
+    - _Color1: {r: 0.24243923, g: 1.929412, b: 1.0531093, a: 0}
+    - _Color2: {r: 0.06666667, g: 0.21523817, b: 0.7921569, a: 0}
+    - _Color3: {r: 0.1504568, g: 0.6518964, b: 1.796079, a: 1}
+    - _Color4: {r: 0.1333333, g: 1.662745, b: 1.090196, a: 0.827451}
+    - _Dir1: {r: 0.1, g: 0, b: 0, a: 0}
+    - _Dir2: {r: 0.1, g: -0.2, b: 0, a: 0}
+    - _Dir3: {r: -0.2, g: 0.5, b: 0, a: 0}
+    - _Dir4: {r: -0.3, g: 0.1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &1801538693942578456
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

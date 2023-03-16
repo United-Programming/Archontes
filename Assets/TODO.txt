@@ -1,0 +1,31 @@
+﻿
+
+
+Start screen
+Define possible pieces
+Improve board borders
+Inprove power circles borders
+
+Implement the battle
+
+
+Pieces
+- Pawn (moves 1 step in any direction), has 3 hit points, use a sword to hit once
+- Goblin (moves 2 steps in any direction), has 2 hit points, use a stick to hit once
+
+
+
+********** BUGS ************************************************************
+
+
+
+
+Anims
+0 idle
+1 walk
+2 start battle
+3 hit main
+4 hit second
+5 hit start
+6 hit end
+7 death
