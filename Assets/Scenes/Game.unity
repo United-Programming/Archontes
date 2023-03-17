@@ -4213,6 +4213,7 @@ MonoBehaviour:
   - {fileID: 8944148820527364979, guid: a72bf3eeb233156438d7a779ab4022b7, type: 3}
   - {fileID: 5628324328740426104, guid: d926a0820696b304b8111fbcb7b7e34c, type: 3}
   - {fileID: 6971446644713896319, guid: 6d129e27ca6a32a40927de7cd068a3a1, type: 3}
+  - {fileID: 5710581541578635360, guid: 2f0c1bc5d3861784bb408a56b8e09cf1, type: 3}
   cam: {fileID: 330585545}
   zoom: 30
   height: 8

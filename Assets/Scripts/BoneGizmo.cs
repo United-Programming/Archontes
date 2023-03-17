@@ -10,7 +10,13 @@ public class BoneGizmo : MonoBehaviour {
     if (root) return;
     if (parent == null) parent = transform.parent;
     Vector3 endPos = parent==null ? transform.position-transform.forward : parent.position;
-
     Handles.DrawBezier(transform.position, endPos, transform.position, endPos, color, null, 5);
+  }
+
+  private void OnDrawGizmosSelected() {
+    if (root) return;
+    if (parent == null) parent = transform.parent;
+    Vector3 endPos = parent == null ? transform.position - transform.forward : parent.position;
+    Handles.DrawBezier(transform.position, endPos, transform.position, endPos, Color.white, null, 8);
   }
 }

@@ -54,7 +54,6 @@ public class Game : MonoBehaviour {
     p = Instantiate(pieces[6], Pieces);
     p.Init(0, 7, true, this);
     tiles[0 + 7 * 9].piece = p;
-
     p = Instantiate(pieces[8], Pieces);
     p.Init(0, 2, true, this);
     tiles[0 + 2 * 9].piece = p;
@@ -86,6 +85,13 @@ public class Game : MonoBehaviour {
     p = Instantiate(pieces[7], Pieces);
     p.Init(8, 7, false, this);
     tiles[8 + 7 * 9].piece = p;
+
+    p = Instantiate(pieces[9], Pieces);
+    p.Init(8, 2, false, this);
+    tiles[8 + 2 * 9].piece = p;
+    p = Instantiate(pieces[9], Pieces);
+    p.Init(8, 6, false, this);
+    tiles[8 + 6 * 9].piece = p;
 
   }
 
