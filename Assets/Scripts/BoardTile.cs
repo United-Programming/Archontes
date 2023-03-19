@@ -42,7 +42,7 @@ public class BoardTile : MonoBehaviour {
   }
 
   internal Vector3 GetWorldPosition() {
-    return new(x * 1.125f - 4.5f, 0.01f, y * 1.125f - 4.5f);
+    return new(x * 1.5625f - 6.25f, 0.01f, y * 1.2375f - 4.95f);
   }
 
 }

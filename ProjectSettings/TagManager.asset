@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Borders
+  - Light
+  - Dark
   layers:
   - Default
   - TransparentFX
@@ -20,10 +22,10 @@ TagManager:
   - Pieces
   - 
   - Environment
-  - PlaneInteraction
-  - 
-  - 
-  - 
+  - LightPiece
+  - LightPieceAvoid
+  - DarkPiece
+  - DarkPeieceAvoid
   - 
   - 
   - 

@@ -33502,7 +33502,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.4666667
+  - time: 1.4333333
     functionName: HitEnd
     data: 
     objectReferenceParameter: {fileID: 0}

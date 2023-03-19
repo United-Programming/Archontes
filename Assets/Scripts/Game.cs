@@ -1,18 +1,19 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
   public Piece[] pieces;
   public Camera cam;
-  public float zoom = 30f; // FOV is between 20 and 40
-  public float height = 8f; // from 1 to 20
+  public float zoom = 33f; // FOV is between 20 and 40
+  public float height = 12f; // from 1 to 20
   bool panning = false;
   Vector3 origPan;
   Vector3 halfStep = Vector3.one * .5f;
-  Vector3 camDefault = new(0, 8, -12.5f);
-  Quaternion camDefRotation = Quaternion.Euler(33, 0, 0);
+  Vector3 camDefault = new(0, 12, -12.5f);
+  Quaternion camDefRotation = Quaternion.Euler(45, 0, 0);
   public BoardTile[] tiles;
   public static GameStatus status = GameStatus.Intro;
   public Canvas canvas;
@@ -22,10 +23,14 @@ public class Game : MonoBehaviour {
   public MeshRenderer Battle;
   public Canvas battleCanvas;
   public TextMeshProUGUI Dbg;
+  public static bool Player1IsLight = true;
+  public Transform LightRotation;
 
   Material battleMat;
 
+
   private void Start() {
+    cam.transform.LookAt(Vector3.zero);
     battleMat = Battle.material;
     Battle.material = battleMat;
     Battle.gameObject.SetActive(false);
@@ -98,9 +103,19 @@ public class Game : MonoBehaviour {
   Piece selected;
   float clickTime = 0;
   private void Update() {
+    if (Input.GetKeyDown(KeyCode.Escape)) {
+      OptionsCanvas.enabled = !OptionsCanvas.enabled;
+      if (OptionsCanvas.enabled) Time.timeScale = 0;
+      else Time.timeScale = 1;
+    }
+
+
     if (status == GameStatus.Fight) {
       Fight();
       return;
+    }
+    else {
+      LightRotation.RotateAround(Vector3.up, Vector3.up, .01f);
     }
     PanAndZoom();
     if (Input.GetMouseButtonDown(0)) {
@@ -133,8 +148,8 @@ public class Game : MonoBehaviour {
             foreach (var tile in tiles) tile.SetAsPossible(false);
             // Make the piece to walk to the destination. When reaced cehck if we need a battle
             status = GameStatus.WalkToDestination;
-            selected.SetTarget(bt);
-            if (bt.piece != null) bt.piece.StepBack();
+            selected.SetTargetBoardTile(bt);
+            if (bt.piece != null) bt.piece.StepBack(selected);
           }
           else {
             foreach (var tile in tiles) tile.SetAsPossible(false);
@@ -160,7 +175,7 @@ public class Game : MonoBehaviour {
       }
     }
     return doneOne;
-
+    /*
 
     switch (p.type) {
       case PieceType.Pawn:
@@ -229,6 +244,7 @@ public class Game : MonoBehaviour {
         break;
     }
     return doneOne;
+    */
   }
 
   void PanAndZoom() {
@@ -236,37 +252,38 @@ public class Game : MonoBehaviour {
 
     // Camera zoom
     zoom -= Input.mouseScrollDelta.y * 4f;
-    if (zoom < 20) zoom = 20;
-    if (zoom > 40) zoom = 40;
-    cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoom, Time.deltaTime * 6);
+    if (zoom < 15) zoom = 15;
+    if (zoom > 50) zoom = 50;
+    cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoom, Time.deltaTime * 16);
 
-    if (Input.GetMouseButtonDown(1)) {
+    Vector3 viewPoint = cam.ScreenToViewportPoint(Input.mousePosition);
+    if (Input.GetMouseButtonDown(2)) {
       panning = true;
-      origPan = cam.ScreenToViewportPoint(Input.mousePosition) - halfStep;
+      origPan = viewPoint - halfStep;
       if (Time.time - clickTime < .25f) {
-        height = 8;
-        zoom = 30;
+        height = 12;
+        zoom = 33;
         StartCoroutine(ResetCamera());
       }
       clickTime = Time.time;
     }
-    if (Input.GetMouseButtonUp(1)) {
+    if (Input.GetMouseButtonUp(2)) {
       panning = false;
     }
 
     if (panning) {
-      Vector3 current = cam.ScreenToViewportPoint(Input.mousePosition) - halfStep;
-      if (current.x != origPan.x) {
-        float angle = (current.x - origPan.x) * 90;
+      Vector3 current = viewPoint - halfStep;
+      if (Mathf.Abs(current.x - origPan.x) > .01f) {
+        float angle = (current.x - origPan.x) * 45;
         origPan.x = current.x;
         cam.transform.RotateAround(Vector3.up, Vector3.up, angle);
       }
-      if (current.y != origPan.y) {
+      if (Mathf.Abs(current.y - origPan.y ) > .1f) {
         height += (origPan.y - current.y) * .25f;
-        height = Mathf.Clamp(height, 1, 20);
+        height = Mathf.Clamp(height, 1, 25);
       }
       Vector3 cp = cam.transform.position;
-      cp.y = Mathf.Lerp(cp.y, height, Time.deltaTime * 8);
+      cp.y = Mathf.Lerp(cp.y, height, Time.deltaTime * 18);
       cam.transform.position = cp;
       cam.transform.LookAt(Vector3.zero);
     }
@@ -277,13 +294,15 @@ public class Game : MonoBehaviour {
     while (time < .2f) {
       time += Time.deltaTime;
       cam.transform.SetPositionAndRotation(
-        Vector3.Lerp(cam.transform.position, camDefault, time * 5), 
-        Quaternion.Slerp(cam.transform.rotation, camDefRotation, time * 5));
-      cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoom, time * 5);
+        Vector3.Lerp(cam.transform.position, camDefault, time * 15), 
+        Quaternion.Slerp(cam.transform.rotation, camDefRotation, time * 15));
+      cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoom, time * 15);
+      cam.transform.LookAt(Vector3.zero);
       yield return null;
     }
     cam.transform.SetPositionAndRotation(camDefault, camDefRotation);
     cam.fieldOfView = zoom;
+    cam.transform.LookAt(Vector3.zero);
   }
 
   internal void UpdateCell(BoardTile destination, Piece piece) {
@@ -298,12 +317,6 @@ public class Game : MonoBehaviour {
     }
   }
 
-  Vector3 camStart;
-  readonly Vector3 camEnd = new(0, 12, -12.5f); // cam pos 0, 12, -12.5
-  Quaternion camRStart;
-  readonly Quaternion camREnd = Quaternion.Euler(45, 0, 0); // rot 45 0 0
-  float fovStart;
-  readonly float fovEnd = 30; // FOV 30
   BoardTile battleTile;
 
   IEnumerator StartFight(Piece piece, Piece opponent) {
@@ -319,14 +332,13 @@ public class Game : MonoBehaviour {
     yield return new WaitForSeconds(.1f);
     LPiece = piece.IsLight ? piece : opponent;
     RPiece = !piece.IsLight ? piece : opponent;
+    playerPiece = Player1IsLight ? LPiece: RPiece;
+    cpuPiece = Player1IsLight ? RPiece: LPiece;
     battleMat.SetFloat("_Alpha", 0);
     Battle.gameObject.SetActive(true);
     RPower.SetValueWithoutNotify(0);
     LPower.SetValueWithoutNotify(0);
     float time = 0;
-    camStart = cam.transform.position;
-    camRStart = cam.transform.rotation;
-    fovStart = cam.fieldOfView;
     Transform l = LPiece.transform;
     Transform r = RPiece.transform;
     Vector3 rPosS = r.position;
@@ -339,22 +351,16 @@ public class Game : MonoBehaviour {
     Quaternion lRotE = Quaternion.Euler(0, 90, 0);
     opponent.transform.SetParent(Battle.transform);
     piece.transform.SetParent(Battle.transform);
-
     while (time < 1) {
-      cam.transform.SetPositionAndRotation(Vector3.Lerp(camStart, camEnd, time), Quaternion.Slerp(camRStart, camREnd, time));
-      cam.fieldOfView = Mathf.Lerp(fovStart, fovEnd, time);
-      Board.localScale = Vector3.one * (1 - time);
       r.SetPositionAndRotation(Vector3.Lerp(rPosS, rPosE, time), Quaternion.Slerp(rRotS, rRotE, time));
       l.SetPositionAndRotation(Vector3.Lerp(lPosS, lPosE, time), Quaternion.Slerp(lRotS, lRotE, time));
       battleMat.SetFloat("_Alpha", time);
+      Board.position = -time * 50 * Vector3.up;
       RPower.SetValueWithoutNotify(time);
       LPower.SetValueWithoutNotify(time);
       time += Time.deltaTime * 1.25f;
       yield return null;
     }
-    cam.transform.SetPositionAndRotation(camEnd, camREnd);
-    cam.fieldOfView = fovEnd;
-    Board.localScale = Vector3.zero;
     Board.gameObject.SetActive(false);
     r.SetPositionAndRotation(rPosE, rRotE);
     l.SetPositionAndRotation(lPosE, lRotE);
@@ -362,33 +368,36 @@ public class Game : MonoBehaviour {
     battleCanvas.enabled = true;
     RPower.SetValueWithoutNotify(1);
     LPower.SetValueWithoutNotify(1);
-    RPiece.SetFight(LPiece);
-    LPiece.SetFight(RPiece);
+    RPiece.SetFight(LPiece, Battle);
+    LPiece.SetFight(RPiece, Battle);
   }
 
-  Piece RPiece, LPiece;
+  Piece RPiece, LPiece, playerPiece, cpuPiece;
   public Slider RPower, LPower;
   Vector3 dstFightWalk;
   public LayerMask FightGroundMask;
   public Toggle PlayAsLight;
   void Fight() {
-    if (Input.GetMouseButtonDown(0) && !LPiece.IsSlashing()) { // Move
+    if (Input.GetMouseButtonDown(0) && playerPiece.IsMovable()) { // Move
       if (!Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, FightGroundMask)) return;
       dstFightWalk = hit.point;
       dstFightWalk.y = 0;
-      if (PlayAsLight.isOn) LPiece.SetDestination(dstFightWalk);
-      else RPiece.SetDestination(dstFightWalk);
+      playerPiece.SetDestination(dstFightWalk);
+      dbgsph.position = dstFightWalk;
     }
     if (Input.GetMouseButtonDown(1)) { // Hit
-      if (PlayAsLight.isOn && LPiece.type == PieceType.Banshee) LPiece.SlashArea(true);
-      if (!PlayAsLight.isOn && RPiece.type == PieceType.Banshee) RPiece.SlashArea(true);
-      else if (PlayAsLight.isOn) LPiece.SlashSingle();
-      else RPiece.SlashSingle();
+      if (playerPiece.type == PieceType.Banshee) playerPiece.SlashArea(true);
+      else playerPiece.SlashSingle();
     }
     else if (Input.GetMouseButtonUp(1)) { // Stop hit
-      if (PlayAsLight.isOn && LPiece.type == PieceType.Banshee) LPiece.SlashArea(false);
-      if (!PlayAsLight.isOn && RPiece.type == PieceType.Banshee) RPiece.SlashArea(false);
+      if (playerPiece.type == PieceType.Banshee) playerPiece.SlashArea(false);
     }
+  }
+
+  public Transform dbgsph;
+
+  public void ChangeLightDark() {
+    Player1IsLight = PlayAsLight.isOn;
   }
 
   internal void Hit(Piece enemy, float power) {
@@ -439,40 +448,56 @@ public class Game : MonoBehaviour {
     Quaternion winnerRs = winner.transform.rotation;
     Quaternion winnerRe = winner.GetWorldRotation();
     float time = 0;
+    battleMat.SetFloat("_Alpha", 0);
     Board.gameObject.SetActive(true);
-    Board.localScale = Vector3.one * .01f;
-    foreach (Transform t in Pieces) if (t.TryGetComponent(out Piece p)) p.transform.position = p.GetWorldPosition();
     while (time < 1) {
-      if (!pieceDead.dead) {
-        pieceDead.transform.localScale = Vector3.Lerp(deadHs, deadHe, time * 1.5f);
-        pieceDead.transform.position = Vector3.Lerp(deadPs, deadPe, time * 1.5f);
-      }
-      winner.transform.SetPositionAndRotation(Vector3.Lerp(winnerPs, winnerPe, time), Quaternion.Slerp(winnerRs, winnerRe, time));
+      pieceDead.transform.localScale = Vector3.Lerp(deadHs, deadHe, time * 1.5f);
+      pieceDead.transform.position = Vector3.Lerp(deadPs, deadPe, time * 1.5f);
+      if (!winner.IsDead) winner.transform.SetPositionAndRotation(Vector3.Lerp(winnerPs, winnerPe, time), Quaternion.Slerp(winnerRs, winnerRe, time));
       battleMat.SetFloat("_Alpha", 1 - time);
-
-      cam.transform.SetPositionAndRotation(Vector3.Lerp(camEnd, camStart, time), Quaternion.Slerp(camREnd, camRStart, time));
-      cam.fieldOfView = Mathf.Lerp(fovEnd, fovStart, time);
-      Board.localScale = Vector3.one * time;
-
+      Board.position = (time - 1) * 50 * Vector3.up;
       time += Time.deltaTime;
       yield return null;
     }
     tiles[pieceDead.x + 9 * pieceDead.y].piece = null;
     battleTile.piece = winner;
-    if (!pieceDead.dead) {
-      pieceDead.dead = true;
-      Destroy(pieceDead.gameObject);
+    pieceDead.status = AIStatus.Dead;
+    Destroy(pieceDead.gameObject);
+    if (!winner.IsDead) {
+      winner.transform.SetParent(Pieces);
+      winner.EndFight();
     }
-    winner.transform.SetParent(Pieces);
+    else Destroy(winner.gameObject);
     Battle.gameObject.SetActive(false);
-    Board.localScale = Vector3.one;
-    foreach(Transform t in Pieces) if (t.TryGetComponent(out Piece p)) p.transform.position = p.GetWorldPosition();
+    Board.position = Vector3.zero;
 
     // FIXME Check if we won
-    winner.EndFight();
     status = GameStatus.PlayerPickPiece; // FIXME Should be the player? Can be the opponent
+  }
+
+
+
+  public Canvas OptionsCanvas;
+  public TMP_Dropdown GraphicsQualityTG;
+  public RenderPipelineAsset HighQualityPipeline;
+  public RenderPipelineAsset BalancedPipeline;
+  public RenderPipelineAsset PerformancePipeline;
+  public void ChangeGraphicsQuality() {
+    switch(GraphicsQualityTG.value) {
+      case 0:
+      GraphicsSettings.renderPipelineAsset = HighQualityPipeline;
+        break;
+      case 1:
+      GraphicsSettings.renderPipelineAsset = BalancedPipeline;
+        break;
+      case 2:
+      GraphicsSettings.renderPipelineAsset = PerformancePipeline;
+        break;
+    }
+  }
+  public void CloseOptions() {
+    OptionsCanvas.enabled = false;
   }
 }
 
-public enum GameStatus { Intro, PlayerPickPiece, PlayerSelectDestination, WalkToDestination, Fight
-}
+public enum GameStatus { Intro, PlayerPickPiece, PlayerSelectDestination, WalkToDestination, Fight }

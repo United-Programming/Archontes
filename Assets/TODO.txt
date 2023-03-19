@@ -1,21 +1,31 @@
 ﻿
+********** TODO ************************************************************
 
 
 Start screen
-Define possible pieces
-Improve board borders
-Inprove power circles borders
-
-Implement the battle
-
-
-Pieces
-- Pawn (moves 1 step in any direction), has 3 hit points, use a sword to hit once
-- Goblin (moves 2 steps in any direction), has 2 hit points, use a stick to hit once
+Options (volume, graphics quality, difficulty, play as)
+Complete pieces: Basilisk, Djinni, ShapeShifter, Phoenix, Dragon, Wizard, Sorceress
+Complete AI: all...
+Make board zoom better
 
 
 
 ********** BUGS ************************************************************
+
+
+
+
+
+
+
+
+Reduice the speed of knight and goblin
+
+
+
+
+
+
 
 
 
@@ -29,3 +39,4 @@ Anims
 5 hit start
 6 hit end
 7 death
+8 Walk back

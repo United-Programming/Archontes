@@ -5,6 +5,7 @@ public class AnimEventsHandler : MonoBehaviour {
   public void HitStart() {
     parent.HitStart();
   }
+
   public void HitEnd() {
     parent.HitEnd();
   }

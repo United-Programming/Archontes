@@ -6,6 +6,8 @@ public class BoneGizmo : MonoBehaviour {
   public bool root;
   public Color color = Color.red;
 
+#if UNITY_EDITOR
+
   private void OnDrawGizmos() {
     if (root) return;
     if (parent == null) parent = transform.parent;
@@ -19,4 +21,5 @@ public class BoneGizmo : MonoBehaviour {
     Vector3 endPos = parent == null ? transform.position - transform.forward : parent.position;
     Handles.DrawBezier(transform.position, endPos, transform.position, endPos, Color.white, null, 8);
   }
+#endif
 }

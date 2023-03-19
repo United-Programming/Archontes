@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3053792201505869659}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmR.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7452512394765964179}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ClavicleL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7052489474411613526}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmR.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2835512342266755565}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail.004_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8262988502951535345}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5890473369716764530}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spine.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1597013166374220945}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmL.003_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 358300490154127726}
   - component: {fileID: 7455529954198678174}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Banshee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 798738108256134645}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmR.003_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1577333530900872482}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmL.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 3756389387780173306}
   - component: {fileID: 3305108353173034927}
   - component: {fileID: 958862721223533252}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Banshee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
   IsLight: 0
   x: 0
   y: 0
-  Speed: 1
+  MaxSpeed: 2
   Accell: 5
   MaxHealth: 3
   Health: 3
@@ -454,6 +454,11 @@ MonoBehaviour:
   StartWeapon: {fileID: 0}
   rb: {fileID: 3305108353173034927}
   coll: {fileID: 958862721223533252}
+  action: 0
+  inFight: {fileID: 0}
+  speed: 0
+  status: 0
+  hitDist: 0.75
 --- !u!54 &3305108353173034927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -492,7 +497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6693074601602234543}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Head.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3668913736841891925}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spine.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6043975838841509109}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmR.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4540018371750103005}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Neck.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +627,7 @@ GameObject:
   - component: {fileID: 5404075363562112533}
   - component: {fileID: 3586358194434863470}
   - component: {fileID: 3083043906335108289}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6477331221987384509}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ClavicleR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 670725792283635806}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmL.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2940226857582373491}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6036131494629809358}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6217567319642959989}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Head.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8191698650728381898}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,7 +885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3357999606179974745}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ArmL.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +917,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9113785864909377347}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,6 +947,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3913615688260163211}
     m_Modifications:
+    - target: {fileID: 6612034075055607053, guid: a4d899b6b0184624095156b61ac6f5d7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612034075479743624, guid: a4d899b6b0184624095156b61ac6f5d7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612034076175182552, guid: a4d899b6b0184624095156b61ac6f5d7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 6612034076219569461, guid: a4d899b6b0184624095156b61ac6f5d7,
         type: 3}
       propertyPath: m_RootOrder
@@ -1004,8 +1024,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6612034076219569462, guid: a4d899b6b0184624095156b61ac6f5d7,
         type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612034076219569462, guid: a4d899b6b0184624095156b61ac6f5d7,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612034076319543868, guid: a4d899b6b0184624095156b61ac6f5d7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4d899b6b0184624095156b61ac6f5d7, type: 3}
